@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateReminder">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Vehicle"
+            android:id="@+id/vehicle"
+            app:fontFamily="@font/quicksand"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/location"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:hint="Location"
+            app:fontFamily="@font/quicksand"
+            android:inputType="textMultiLine"/>
+
+        <Button
+            android:id="@+id/createButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Reminder"
+            android:textColor="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:onClick="createReminder"
+            app:fontFamily="@font/quicksand"
+            android:layout_gravity="right"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
