@@ -4,10 +4,14 @@ public class Reminder {
 
     private String location;
     private String vehicle;
+    private float lat;
+    private float lon;
 
-    public Reminder(String l, String v) {
+    public Reminder(String l, String v, Float la, Float lo) {
         this.location = l;
         this.vehicle = v;
+        this.lat = la;
+        this.lon = lo;
     }
 
     public String getLocation() {
@@ -17,4 +21,13 @@ public class Reminder {
     public String getVehicle() {
         return vehicle;
     }
+
+    public float getLatitude() {
+        return lat;
+    }
+
+    public float getLongitude() {
+        return lon;
+    }
+
 }

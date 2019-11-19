@@ -23,15 +23,31 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/reminder_location"
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="15dp"
-                android:layout_weight="3"
-                android:textSize="24sp"
-                app:fontFamily="@font/quicksand" />
+                android:layout_weight="3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/reminder_location"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="15dp"
+                    android:textSize="24sp"
+                    app:fontFamily="@font/quicksand" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/reminder_gps"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="15dp"
+                    android:textSize="24sp"
+                    app:fontFamily="@font/quicksand" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/buttonClear"
