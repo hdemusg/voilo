@@ -20,13 +20,14 @@
             android:background="@android:drawable/btn_dropdown"
             android:spinnerMode="dropdown"/> -->
 
+        <!--
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Vehicle"
             android:id="@+id/vehicle"
             app:fontFamily="@font/quicksand"
-            android:inputType="text"/>
+            android:inputType="text"/> -->
 
         <EditText
             android:id="@+id/location"
@@ -37,6 +38,8 @@
             app:fontFamily="@font/quicksand"
             android:inputType="textMultiLine"/>
 
+
+
         <Button
             android:id="@+id/createButton"
             android:layout_width="wrap_content"
@@ -44,7 +47,6 @@
             android:text="Create Reminder"
             android:textColor="@color/colorPrimary"
             android:backgroundTint="@color/colorPrimaryDark"
-            android:onClick="createReminder"
             app:fontFamily="@font/quicksand"
             android:layout_gravity="right"/>
 

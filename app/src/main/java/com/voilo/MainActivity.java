@@ -1,11 +1,14 @@
 package com.voilo;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -18,6 +21,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.preference.PreferenceManager;
 import android.view.Gravity;
@@ -28,14 +33,20 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final Reminder[] rem = new Reminder[1];
     protected static TextView r;
     protected static Button clear;
     protected static TextView g;
+    protected static Button gps;
+    protected static Button share;
     protected static NotificationCompat.Builder builder;
     protected static NotificationManagerCompat notificationManager;
+
+    HashMap<String, Reminder> vehicles = new HashMap<String, Reminder>();
     //protected static Button create;
 
     @Override
@@ -47,7 +58,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         clear = findViewById(R.id.buttonClear);
-        g = findViewById(R.id.reminder_gps);
+        //g = findViewById(R.id.reminder_gps);
+        gps = findViewById(R.id.gpsButton);
+        share = findViewById(R.id.shareButton);
         //create = findViewById(R.id.buttonCreate);
         r = findViewById(R.id.reminder_location);
         notificationManager = NotificationManagerCompat.from(this);
@@ -112,6 +125,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
          */
+
+        gps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("google.navigation:q=" + Float.toString(rem[0].getLatitude()) + "," + Float.toString(rem[0].getLongitude()) + "&mode=w");
+                //Uri uri = Uri.parse("google.navigation:q=Mercedes-Benz+Stadium&mode=w");
+                Intent map = new Intent(Intent.ACTION_VIEW, uri);
+                map.setPackage("com.google.android.apps.maps");
+                startActivity(map);
+            }
+        });
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "https://www.google.com/maps/search/?api=1&query=" + Float.toString(rem[0].getLatitude()) + "," + Float.toString(rem[0].getLongitude()));
+                sendIntent.setType("text/plain");
+
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
+            }
+        });
     }
 
     @Override
@@ -129,7 +165,15 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_privacy) {
+            PrivacyStatementFragment priv = new PrivacyStatementFragment();
+            priv.show(getSupportFragmentManager(), "privacy");
+            return true;
+        }
+        if (id == R.id.action_feedback) {
+            Uri uri = Uri.parse("https://forms.gle/UEXKjnB43jnzh2oF7");
+            Intent feedback = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(feedback);
             return true;
         }
 
@@ -143,18 +187,25 @@ public class MainActivity extends AppCompatActivity {
 
     public static void updateRem() {
         if (rem[0] == null) {
-            r.setText("No reminders exist");
+            r.setTextSize(16);
+            r.setText("Tap the add button in the bottom-right corner to create a reminder");
             clear.setVisibility(View.INVISIBLE);
-            g.setVisibility(View.INVISIBLE);
+            gps.setVisibility(View.INVISIBLE);
+            share.setVisibility(View.INVISIBLE);
             //create.setVisibility(View.VISIBLE);
         } else {
+            r.setTextSize(24);
             r.setText(rem[0].getLocation());
             clear.setVisibility(View.VISIBLE);
             if (!(rem[0].getLatitude() == 0 && rem[0].getLongitude() == 0)) {
-                g.setVisibility(View.VISIBLE);
-                g.setText("(" + Float.toString(rem[0].getLatitude()) + ", " + Float.toString(rem[0].getLongitude()) + ")");
+                gps.setVisibility(View.VISIBLE);
+                share.setVisibility(View.VISIBLE);
+                //g.setText(String.format("(%.6f, %.6f)", rem[0].getLatitude(), rem[0].getLongitude()));
             } else {
-                g.setVisibility(View.INVISIBLE);
+                //g.setVisibility(View.VISIBLE);
+                //g.setText("Location currently unavailable");
+                gps.setVisibility(View.INVISIBLE);
+                gps.setVisibility(View.INVISIBLE);
             }
             //notificationManager.notify(0, builder.build());
             //create.setVisibility(View.INVISIBLE);

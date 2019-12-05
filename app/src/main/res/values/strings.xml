@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">voilo</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_privacy">Privacy Statement</string>
+    <string name="action_feedback">Feedback</string>
     <string name="current_vehicle"></string>
     <string name="current_lat"></string>
     <string name="current_long"></string>

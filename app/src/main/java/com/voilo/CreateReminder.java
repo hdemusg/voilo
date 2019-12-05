@@ -25,6 +25,7 @@ public class CreateReminder extends AppCompatActivity implements LocationListene
     EditText veh;
     float lat = (float) 0.0;
     float lon = (float) 0.0;
+    Button create;
 
     @Override
     public void onLocationChanged(Location location) {
@@ -61,19 +62,26 @@ public class CreateReminder extends AppCompatActivity implements LocationListene
             // to handle the case where the user grants the permission. See the documentation
             // for Activity#requestPermissions for more details.
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
             return;
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         }
+        create = findViewById(R.id.createButton);
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createReminder(view);
+            }
+        });
     }
 
     public void createReminder(View view) {
         loc = findViewById(R.id.location);
-        veh = findViewById(R.id.vehicle);
+        //veh = findViewById(R.id.vehicle);
         String l = loc.getText().toString();
-        String v = veh.getText().toString();
-        Reminder r = new Reminder(l, v, lat, lon);
+        //String v = veh.getText().toString();
+        Reminder r = new Reminder(l, "default", lat, lon);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         //SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();

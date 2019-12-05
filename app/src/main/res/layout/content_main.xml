@@ -37,15 +37,42 @@
                     android:layout_margin="15dp"
                     android:textSize="24sp"
                     app:fontFamily="@font/quicksand" />
-
+                <!--
                 <TextView
                     android:layout_width="match_parent"
                     android:id="@+id/reminder_gps"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="15dp"
-                    android:textSize="24sp"
+                    android:textSize="18sp"
                     app:fontFamily="@font/quicksand" />
+                    -->
+
+                <LinearLayout
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content">
+
+                    <Button
+                        android:id="@+id/gpsButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:fontFamily="@font/quicksand"
+                        android:backgroundTint="#000"
+                        android:textColor="@color/colorPrimary"
+                        android:text="get directions" />
+
+                    <Button
+                        android:layout_marginLeft="5dp"
+                        android:id="@+id/shareButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:fontFamily="@font/quicksand"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="share" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
